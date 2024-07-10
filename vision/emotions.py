@@ -15,8 +15,8 @@ def detect_emotions(image_path):
     
     # Detect emotions
     emotions = emotion_detector.detect_emotions(image_rgb)
-    print(emotions)
     
+    emotion_detected = ''
     # Draw bounding boxes and emotion labels on the image
     for result in emotions:
         bounding_box = result['box']
@@ -24,15 +24,16 @@ def detect_emotions(image_path):
         
         # Get the dominant emotion
         dominant_emotion = max(emotions, key=emotions.get)
-        print(type(dominant_emotion))
+        
         # Draw the bounding box
         x, y, w, h = bounding_box
         cv2.rectangle(image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        
+        emotion_detected = dominant_emotion
         # Put the emotion label
         cv2.putText(image_rgb, dominant_emotion, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
     
     # Display the result
     plt.imshow(image_rgb)
     plt.axis('off')
-    plt.show()
+    # plt.show()
+    return emotion_detected
