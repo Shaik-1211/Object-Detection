@@ -1,5 +1,5 @@
 import json,os
-from gtts import gTTS
+# from gtts import gTTS
 from ultralytics import YOLO 
 from emotions import detect_emotions
 from activity import detect_action
@@ -30,7 +30,9 @@ def process_image(image_path):
 
 def text_to_speech(filename):
     objects = process_image(filename)
-    if 'person' in objects.keys() :
+    action = ''
+    emotion = ''
+    if 'person' in objects.keys() : 
         emotion = detect_emotions(filename)
         print(emotion)
         action = detect_action(filename)
